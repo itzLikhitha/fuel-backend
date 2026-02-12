@@ -124,5 +124,8 @@ def mechanics_table():
     table_html += "</table><br><a href='/'>Back to Home</a>"
     return table_html
 
+import os
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
