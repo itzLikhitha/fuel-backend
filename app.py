@@ -33,6 +33,10 @@ app.register_blueprint(mechanic_bp)
 @app.route("/")
 def home():
     return "Fuel Delivery Backend Running Successfully 🚀"
+    @app.route("/check_routes")
+def check_routes():
+    return str(app.url_map)
+
 
 
 if __name__ == "__main__":
