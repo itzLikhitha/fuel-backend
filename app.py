@@ -1,26 +1,25 @@
 from flask import Flask
-from flask_cors import CORS
-import os
-
-# Import Blueprints
+from models import db
 from routes.auth_routes import auth_bp
 from routes.fuel_routes import fuel_bp
 from routes.mechanic_routes import mechanic_bp
 
 app = Flask(__name__)
-CORS(app)
 
-# Register Blueprints (NO extra prefix here)
+# Database Configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+# Register Blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(fuel_bp)
 app.register_blueprint(mechanic_bp)
 
-# Home route
-@app.route("/")
+@app.route('/')
 def home():
-    return "Fuel Delivery Backend Running Successfully!"
+    return "Backend running successfully"
 
-# Render Port Config
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
