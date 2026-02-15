@@ -7,17 +7,16 @@ from routes.auth_routes import auth_bp
 from routes.fuel_routes import fuel_bp
 from routes.mechanic_routes import mechanic_bp
 
-
 app = Flask(__name__)
 
-# Enable CORS (Very important for frontend)
+# Enable CORS
 CORS(app)
 
 # Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fuel_delivery.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///fuel_delivery.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Initialize database
+# Initialize Database
 db.init_app(app)
 
 with app.app_context():
@@ -33,11 +32,8 @@ app.register_blueprint(mechanic_bp)
 @app.route("/")
 def home():
     return "Fuel Delivery Backend Running Successfully 🚀"
-    @app.route("/check_routes")
-def check_routes():
-    return str(app.url_map)
 
 
-
+# Run locally
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
